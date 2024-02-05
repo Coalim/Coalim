@@ -1,4 +1,4 @@
-﻿namespace Coalim.DatabaseSchema;
+﻿namespace Coalim.Database.Schema;
 
 #nullable disable
 

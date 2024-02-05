@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.DatabaseSchema", "Coalim.DatabaseSchema\Coalim.DatabaseSchema.csproj", "{A0C6DA07-B089-46A3-BEEB-B8C2921DA11E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.Schema", "Coalim.Database.Schema\Coalim.Database.Schema.csproj", "{A0C6DA07-B089-46A3-BEEB-B8C2921DA11E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.Accessor", "Coalim.Database.Accessor\Coalim.Database.Accessor.csproj", "{D0C8685B-6B1F-46D6-9B49-6B12A4D8F4A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.Tests", "Coalim.Database.Tests\Coalim.Database.Tests.csproj", "{40795D92-904C-4CB9-8F42-921DB1FF2EAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +16,13 @@ Global
 		{A0C6DA07-B089-46A3-BEEB-B8C2921DA11E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0C6DA07-B089-46A3-BEEB-B8C2921DA11E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0C6DA07-B089-46A3-BEEB-B8C2921DA11E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0C8685B-6B1F-46D6-9B49-6B12A4D8F4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0C8685B-6B1F-46D6-9B49-6B12A4D8F4A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0C8685B-6B1F-46D6-9B49-6B12A4D8F4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0C8685B-6B1F-46D6-9B49-6B12A4D8F4A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40795D92-904C-4CB9-8F42-921DB1FF2EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40795D92-904C-4CB9-8F42-921DB1FF2EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40795D92-904C-4CB9-8F42-921DB1FF2EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40795D92-904C-4CB9-8F42-921DB1FF2EAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
