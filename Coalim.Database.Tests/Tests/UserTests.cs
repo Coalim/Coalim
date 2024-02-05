@@ -13,6 +13,7 @@ public class UserTests
 
         // Act
         CoalimUser user = db.CreateUser("user");
+        db.SaveChanges();
 
         // Assert
         Assert.That(user.Username, Is.EqualTo("user"));

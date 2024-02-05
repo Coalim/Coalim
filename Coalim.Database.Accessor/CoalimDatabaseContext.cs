@@ -1,9 +1,10 @@
-﻿using Coalim.Database.Schema;
+﻿using Coalim.Database.Accessor.Exceptions;
+using Coalim.Database.Schema;
 using Coalim.Database.Schema.Data;
 
 namespace Coalim.Database.Accessor;
 
-public class CoalimDatabaseContext : IDisposable, IAsyncDisposable
+public class CoalimDatabaseContext : IDisposable
 {
     private readonly CoalimDatabaseSchemaContext _context;
     
@@ -12,7 +13,7 @@ public class CoalimDatabaseContext : IDisposable, IAsyncDisposable
         this._context = context;
     }
 
-    private void SaveChanges()
+    public void SaveChanges()
     {
         this._context.SaveChanges();
     }
@@ -25,18 +26,17 @@ public class CoalimDatabaseContext : IDisposable, IAsyncDisposable
         };
 
         this._context.Users.Add(user);
-        this.SaveChanges();
         return user;
     }
 
     public void Dispose()
     {
+        if (this._context.ChangeTracker.HasChanges())
+        {
+            throw new UnsavedChangesException();
+        }
+        
         this._context.Dispose();
         GC.SuppressFinalize(this);
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        await _context.DisposeAsync();
     }
 }
