@@ -3,7 +3,7 @@ using Coalim.Database.Schema.Data;
 
 namespace Coalim.Database.Accessor;
 
-public class CoalimDatabaseContext
+public class CoalimDatabaseContext : IDisposable, IAsyncDisposable
 {
     private readonly CoalimDatabaseSchemaContext _context;
     
@@ -25,6 +25,18 @@ public class CoalimDatabaseContext
         };
 
         this._context.Users.Add(user);
+        this.SaveChanges();
         return user;
+    }
+
+    public void Dispose()
+    {
+        this._context.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await _context.DisposeAsync();
     }
 }
