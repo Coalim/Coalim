@@ -4,8 +4,8 @@ namespace Coalim.Database.Schema.Data;
 
 public class CoalimUser
 {
-    [Key]
-    public Guid UserId { get; set; }
+    [Key, ExcludeFromCodeCoverage]
+    public Guid UserId { get; init; }
     
     [Required, DataType(DataType.Text)]
     public string Username { get; set; }
