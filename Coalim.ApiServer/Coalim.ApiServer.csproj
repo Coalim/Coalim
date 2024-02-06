@@ -18,8 +18,4 @@
       <PackageReference Include="Bunkum.Protocols.Http" Version="4.4.4" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Database\" />
-    </ItemGroup>
-
 </Project>

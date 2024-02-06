@@ -1,6 +1,7 @@
 ﻿
 
 using System.Reflection;
+using Coalim.ApiServer.Authentication;
 using Coalim.Database.BunkumSupport;
 
 namespace Coalim.ApiServer;
@@ -19,6 +20,7 @@ public class Program
             
             s.DiscoverEndpointsFromAssembly(Assembly.GetExecutingAssembly());
             s.UseDatabaseProvider(databaseProvider);
+            s.AddService<AuthenticationService>();
         };
         
         server.Start();

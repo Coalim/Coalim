@@ -84,6 +84,9 @@ public class CoalimDatabaseContext : IDisposable
     public CoalimMessage? GetMessageByGuid(Guid guid)
         => this._context.Messages.FirstOrDefault(s => s.MessageId == guid);
 
+    public CoalimToken? GetTokenByTokenData(string tokenData)
+        => this._context.Tokens.FirstOrDefault(t => t.TokenData == tokenData);
+
     public void Dispose()
     {
         if (this._context.ChangeTracker.HasChanges())
