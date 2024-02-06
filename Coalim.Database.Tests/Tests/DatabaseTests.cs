@@ -15,6 +15,7 @@ public class DatabaseTests
         // Act
         db.CreateUser("user");
 
+        // Assert
         Assert.That(db.Dispose, Throws.Exception.TypeOf(typeof(UnsavedChangesException)));
     }
 }

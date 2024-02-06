@@ -7,6 +7,6 @@ public class CoalimUser
     [Key, ExcludeFromCodeCoverage]
     public Guid UserId { get; init; }
     
-    [Required, DataType(DataType.Text), MaxLength(24)]
+    [Required, DataType(DataType.Text), MaxLength(Limits.UsernameLimit)]
     public string Username { get; set; }
 }

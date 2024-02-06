@@ -1,6 +1,7 @@
 ﻿using Coalim.Database.Accessor.Exceptions;
 using Coalim.Database.Schema;
 using Coalim.Database.Schema.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coalim.Database.Accessor;
 
@@ -18,11 +19,6 @@ public class CoalimDatabaseContext : IDisposable
         this._context.SaveChanges();
     }
 
-    public CoalimUser? GetUserByGuid(Guid guid)
-    {
-        return this._context.Users.FirstOrDefault(u => u.UserId == guid);
-    }
-
     public CoalimUser CreateUser(string username)
     {
         CoalimUser user = new CoalimUser
@@ -32,6 +28,36 @@ public class CoalimDatabaseContext : IDisposable
 
         this._context.Users.Add(user);
         return user;
+    }
+    
+    public CoalimUser? GetUserByGuid(Guid guid)
+    {
+        return this._context.Users.FirstOrDefault(u => u.UserId == guid);
+    }
+
+    public CoalimServer CreateServer(CoalimUser creator, string name)
+    {
+        CoalimServer server = new CoalimServer
+        {
+            Name = name,
+            Creator = creator,
+            Channels = [
+                new CoalimChannel
+                {
+                    Name = "general",
+                },
+            ],
+        };
+        
+        this._context.Servers.Add(server);
+        return server;
+    }
+
+    public CoalimServer? GetServerByGuid(Guid guid)
+    {
+        return this._context.Servers
+            .Include(s => s.Channels)
+            .FirstOrDefault(s => s.ServerId == guid);
     }
 
     public void Dispose()
