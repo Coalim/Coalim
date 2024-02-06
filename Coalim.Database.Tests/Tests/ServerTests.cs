@@ -1,5 +1,6 @@
 using Coalim.Database.Accessor;
-using Coalim.Database.Schema.Data;
+using Coalim.Database.Schema.Data.Chat;
+using Coalim.Database.Schema.Data.User;
 
 namespace Coalim.Database.Tests.Tests;
 

@@ -1,6 +1,5 @@
 using Coalim.Database.Accessor;
 using Coalim.Database.Schema.Tests;
-using Microsoft.EntityFrameworkCore;
 
 namespace Coalim.Database.Tests;
 

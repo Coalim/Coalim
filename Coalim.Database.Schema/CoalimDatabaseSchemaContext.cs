@@ -1,4 +1,7 @@
-﻿namespace Coalim.Database.Schema;
+﻿using Coalim.Database.Schema.Data.Chat;
+using Coalim.Database.Schema.Data.User;
+
+namespace Coalim.Database.Schema;
 
 #nullable disable
 

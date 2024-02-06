@@ -5,7 +5,7 @@ using Bunkum.Core.Services;
 using Bunkum.Listener.Protocol;
 using Bunkum.Listener.Request;
 using Coalim.Database.Accessor;
-using Coalim.Database.Schema.Data;
+using Coalim.Database.Schema.Data.User;
 using NotEnoughLogs;
 
 namespace Coalim.ApiServer.Authentication;

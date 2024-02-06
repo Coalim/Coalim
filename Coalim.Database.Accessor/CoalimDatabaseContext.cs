@@ -1,6 +1,7 @@
 ﻿using Coalim.Database.Accessor.Exceptions;
 using Coalim.Database.Schema;
-using Coalim.Database.Schema.Data;
+using Coalim.Database.Schema.Data.Chat;
+using Coalim.Database.Schema.Data.User;
 
 namespace Coalim.Database.Accessor;
 
