@@ -1,7 +1,6 @@
 ﻿using Coalim.Database.Accessor.Exceptions;
 using Coalim.Database.Schema;
 using Coalim.Database.Schema.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Coalim.Database.Accessor;
 
