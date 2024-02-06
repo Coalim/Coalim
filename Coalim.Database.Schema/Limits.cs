@@ -6,4 +6,6 @@ public static class Limits
     
     public const int NameLimit = 48;
     public const int DescriptionLimit = 128;
+    
+    public const int MessageLimit = 4096;
 }

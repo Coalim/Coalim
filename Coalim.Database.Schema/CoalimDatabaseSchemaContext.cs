@@ -7,6 +7,7 @@ public abstract class CoalimDatabaseSchemaContext : DbContext
     public DbSet<CoalimUser> Users { get; set; }
     public DbSet<CoalimServer> Servers { get; set; }
     public DbSet<CoalimChannel> Channels { get; set; }
+    public DbSet<CoalimMessage> Messages { get; set; }
 
     protected abstract override void OnConfiguring(DbContextOptionsBuilder optionsBuilder);
 }

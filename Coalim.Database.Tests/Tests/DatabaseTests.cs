@@ -1,6 +1,5 @@
 using Coalim.Database.Accessor;
 using Coalim.Database.Accessor.Exceptions;
-using Coalim.Database.Schema.Data;
 
 namespace Coalim.Database.Tests.Tests;
 

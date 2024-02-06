@@ -69,6 +69,22 @@ public class CoalimDatabaseContext : IDisposable
     public CoalimChannel? GetChannelByGuid(Guid guid)
         => this._context.Channels.FirstOrDefault(s => s.ChannelId == guid);
 
+    public CoalimMessage CreateMessage(CoalimUser author, CoalimChannel channel, string content)
+    {
+        CoalimMessage message = new()
+        {
+            Author = author,
+            Channel = channel,
+            Content = content,
+        };
+
+        this._context.Messages.Add(message);
+        return message;
+    }
+    
+    public CoalimMessage? GetMessageByGuid(Guid guid)
+        => this._context.Messages.FirstOrDefault(s => s.MessageId == guid);
+
     public void Dispose()
     {
         if (this._context.ChangeTracker.HasChanges())
