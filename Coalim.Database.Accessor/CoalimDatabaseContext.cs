@@ -54,6 +54,21 @@ public class CoalimDatabaseContext : IDisposable
     public CoalimServer? GetServerByGuid(Guid guid)
         => this._context.Servers.FirstOrDefault(s => s.ServerId == guid);
 
+    public CoalimChannel CreateChannel(CoalimServer server, string name)
+    {
+        CoalimChannel channel = new CoalimChannel
+        {
+            Name = name,
+            Server = server,
+        };
+        
+        server.Channels.Add(channel);
+        return channel;
+    }
+
+    public CoalimChannel? GetChannelByGuid(Guid guid)
+        => this._context.Channels.FirstOrDefault(s => s.ChannelId == guid);
+
     public void Dispose()
     {
         if (this._context.ChangeTracker.HasChanges())
