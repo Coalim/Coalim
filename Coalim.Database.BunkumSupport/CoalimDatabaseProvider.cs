@@ -19,6 +19,7 @@ public class CoalimDatabaseProvider<TSchemaType> : IDatabaseProvider<CoalimBunku
     public CoalimBunkumDatabaseContext GetContext()
     {
         CoalimDatabaseSchemaContext context = new TSchemaType();
+        context.Database.EnsureCreated(); // TODO: don't do this
         return new CoalimBunkumDatabaseContext(context);
     }
     

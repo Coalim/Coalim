@@ -1,10 +1,10 @@
-namespace Coalim.ApiServer.EndpointAttributes;
+namespace Coalim.Api.Server.EndpointAttributes;
 
 public class ApiEndpoint : HttpEndpointAttribute
 {
     public const string BaseUrl = "/api/v1";
 
-    public ApiEndpoint(string route, HttpMethods method = HttpMethods.Get, string contentType = "text/plain")
+    public ApiEndpoint(string route, HttpMethods method = HttpMethods.Get, string contentType = "application/json")
         : base(BaseUrl + route, method, contentType)
     {}
 

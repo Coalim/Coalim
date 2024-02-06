@@ -1,12 +1,10 @@
-﻿
-
-using System.Reflection;
-using Coalim.ApiServer.Authentication;
+﻿using System.Reflection;
+using Coalim.Api.Server.Authentication;
 using Coalim.Database.BunkumSupport;
 using NotEnoughLogs;
 using NotEnoughLogs.Behaviour;
 
-namespace Coalim.ApiServer;
+namespace Coalim.Api.Server;
 
 [ExcludeFromCodeCoverage]
 public class Program

@@ -7,6 +7,6 @@ public class PostgresSchemaContext : CoalimDatabaseSchemaContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql();
+        optionsBuilder.UseNpgsql("Host=localhost;Database=coalim;Username=coalim;Password=coalim");
     }
 }

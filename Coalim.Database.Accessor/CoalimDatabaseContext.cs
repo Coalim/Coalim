@@ -2,6 +2,7 @@
 using Coalim.Database.Schema;
 using Coalim.Database.Schema.Data.Chat;
 using Coalim.Database.Schema.Data.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coalim.Database.Accessor;
 
@@ -32,6 +33,9 @@ public class CoalimDatabaseContext : IDisposable
     
     public CoalimUser? GetUserByGuid(Guid guid)
         => this._context.Users.FirstOrDefault(u => u.UserId == guid);
+    
+    public CoalimUser? GetUserByUsername(string username)
+        => this._context.Users.FirstOrDefault(u => u.Username == username);
 
     public CoalimServer CreateServer(CoalimUser creator, string name)
     {
@@ -85,8 +89,21 @@ public class CoalimDatabaseContext : IDisposable
     public CoalimMessage? GetMessageByGuid(Guid guid)
         => this._context.Messages.FirstOrDefault(s => s.MessageId == guid);
 
+    public CoalimToken CreateTokenForUser(CoalimUser user)
+    {
+        CoalimToken token = new()
+        {
+            User = user,
+            TokenData = Random.Shared.Next().ToString(), // TODO: implement more secure token data gathering
+        };
+
+        this._context.Tokens.Add(token);
+        return token;
+    }
+
     public CoalimToken? GetTokenByTokenData(string tokenData)
-        => this._context.Tokens.FirstOrDefault(t => t.TokenData == tokenData);
+        => this._context.Tokens.Include(t => t.User)
+            .FirstOrDefault(t => t.TokenData == tokenData);
 
     public void Dispose()
     {

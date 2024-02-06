@@ -8,7 +8,7 @@ using Coalim.Database.Accessor;
 using Coalim.Database.Schema.Data.User;
 using NotEnoughLogs;
 
-namespace Coalim.ApiServer.Authentication;
+namespace Coalim.Api.Server.Authentication;
 
 /// <summary>
 /// Thinned implementation of Bunkum's own authentication service.
@@ -63,7 +63,8 @@ public class AuthenticationService : Service
             return this._tokenCache.Value;
         }
 
-        string? header = context.RequestHeaders["Authorization"];
+        // string? header = context.RequestHeaders["Authorization"];
+        string? header = context.Query["token"]; // TODO: don't do this
         if (header == null) return null;
         
         CoalimDatabaseContext database = (CoalimDatabaseContext)databaseLazy.Value;

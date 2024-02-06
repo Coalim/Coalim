@@ -6,9 +6,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <AssemblyName>Coalim.Api.Server</AssemblyName>
+        <RootNamespace>Coalim.Api.Server</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Coalim.Api.Serialization\Coalim.Api.Serialization.csproj" />
       <ProjectReference Include="..\Coalim.Database.Accessor\Coalim.Database.Accessor.csproj" />
       <ProjectReference Include="..\Coalim.Database.BunkumSupport\Coalim.Database.BunkumSupport.csproj" />
     </ItemGroup>
