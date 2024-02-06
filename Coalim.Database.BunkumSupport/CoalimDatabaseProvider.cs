@@ -3,7 +3,8 @@ using Coalim.Database.Schema;
 
 namespace Coalim.Database.BunkumSupport;
 
-public class CoalimDatabaseProvider : IDatabaseProvider<CoalimBunkumDatabaseContext>
+public class CoalimDatabaseProvider<TSchemaType> : IDatabaseProvider<CoalimBunkumDatabaseContext>
+    where TSchemaType : CoalimDatabaseSchemaContext, new()
 {
     public void Initialize()
     {
@@ -17,7 +18,7 @@ public class CoalimDatabaseProvider : IDatabaseProvider<CoalimBunkumDatabaseCont
 
     public CoalimBunkumDatabaseContext GetContext()
     {
-        CoalimDatabaseSchemaContext context = new PostgresSchemaContext();
+        CoalimDatabaseSchemaContext context = new TSchemaType();
         return new CoalimBunkumDatabaseContext(context);
     }
     

@@ -15,7 +15,7 @@ public class Program
 
         server.Initialize = s =>
         {
-            CoalimDatabaseProvider databaseProvider = new CoalimDatabaseProvider();
+            CoalimDatabaseProvider<PostgresSchemaContext> databaseProvider = new();
             databaseProvider.GetContext().SaveChanges();
             
             s.DiscoverEndpointsFromAssembly(Assembly.GetExecutingAssembly());

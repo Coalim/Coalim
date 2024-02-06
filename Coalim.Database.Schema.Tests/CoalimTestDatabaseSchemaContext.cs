@@ -1,7 +1,6 @@
-using Coalim.Database.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Coalim.Database.Tests;
+namespace Coalim.Database.Schema.Tests;
 
 public class CoalimTestDatabaseSchemaContext : CoalimDatabaseSchemaContext
 {
