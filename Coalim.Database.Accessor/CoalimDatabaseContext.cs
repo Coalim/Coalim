@@ -31,9 +31,7 @@ public class CoalimDatabaseContext : IDisposable
     }
     
     public CoalimUser? GetUserByGuid(Guid guid)
-    {
-        return this._context.Users.FirstOrDefault(u => u.UserId == guid);
-    }
+        => this._context.Users.FirstOrDefault(u => u.UserId == guid);
 
     public CoalimServer CreateServer(CoalimUser creator, string name)
     {
@@ -54,11 +52,7 @@ public class CoalimDatabaseContext : IDisposable
     }
 
     public CoalimServer? GetServerByGuid(Guid guid)
-    {
-        return this._context.Servers
-            .Include(s => s.Channels)
-            .FirstOrDefault(s => s.ServerId == guid);
-    }
+        => this._context.Servers.FirstOrDefault(s => s.ServerId == guid);
 
     public void Dispose()
     {
