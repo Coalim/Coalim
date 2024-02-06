@@ -3,6 +3,8 @@
 using System.Reflection;
 using Coalim.ApiServer.Authentication;
 using Coalim.Database.BunkumSupport;
+using NotEnoughLogs;
+using NotEnoughLogs.Behaviour;
 
 namespace Coalim.ApiServer;
 
@@ -11,7 +13,13 @@ public class Program
 {
     public static async Task Main()
     {
-        BunkumServer server = new BunkumHttpServer();
+        LoggerConfiguration logConfig = new LoggerConfiguration
+        {
+            Behaviour = new QueueLoggingBehaviour(),
+            MaxLevel = LogLevel.Trace,
+        };
+        
+        BunkumServer server = new BunkumHttpServer(logConfig);
 
         server.Initialize = s =>
         {
