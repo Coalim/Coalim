@@ -18,4 +18,37 @@ public class UserTests
         // Assert
         Assert.That(user.Username, Is.EqualTo("user"));
     }
+
+    [Test]
+    public void FindsExistingUser()
+    {
+        // Arrange
+        using CoalimDatabaseContext db = TestHelper.CreateDb();
+
+        // Act
+        Guid guid = db.CreateUser("user").UserId;
+        db.SaveChanges();
+
+        CoalimUser? user = db.GetUserByGuid(guid);
+
+        // Assert
+        Assert.That(user, Is.Not.Null);
+        Assert.That(user!.Username, Is.EqualTo("user"));
+    }
+    
+    [Test]
+    public void DoesntFindNonExistingUser()
+    {
+        // Arrange
+        using CoalimDatabaseContext db = TestHelper.CreateDb();
+
+        // Act
+        db.CreateUser("user");
+        db.SaveChanges();
+
+        CoalimUser? user = db.GetUserByGuid(new Guid(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
+
+        // Assert
+        Assert.That(user, Is.Null);
+    }
 }

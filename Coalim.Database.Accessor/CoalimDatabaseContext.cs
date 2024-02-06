@@ -18,6 +18,11 @@ public class CoalimDatabaseContext : IDisposable
         this._context.SaveChanges();
     }
 
+    public CoalimUser? GetUserByGuid(Guid guid)
+    {
+        return this._context.Users.FirstOrDefault(u => u.UserId == guid);
+    }
+
     public CoalimUser CreateUser(string username)
     {
         CoalimUser user = new CoalimUser
