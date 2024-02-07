@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Bunkum.Core.Responses;
 using Bunkum.Core.Responses.Serialization;
 using Coalim.Api.Server.Authentication;
 using Coalim.Api.Server.Serialization;

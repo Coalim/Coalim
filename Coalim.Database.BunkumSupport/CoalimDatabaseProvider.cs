@@ -1,5 +1,4 @@
 using Bunkum.Core.Database;
-using Coalim.Database.Accessor;
 using Coalim.Database.Schema;
 using Microsoft.EntityFrameworkCore;
 
