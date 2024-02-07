@@ -8,7 +8,7 @@ public class MessagingTests
     public void SendsMessage()
     {
         using CoalimDatabaseContext db = TestHelper.CreateDb();
-        TestServerContext context = new TestServerContext(db);
+        TestDatabaseContext context = new TestDatabaseContext(db);
 
         db.CreateMessage(context.User1, context.Channel, "yo man");
         db.CreateMessage(context.User2, context.Channel, "whats good");

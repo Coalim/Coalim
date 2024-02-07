@@ -17,4 +17,9 @@
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Coalim.ApiServer\Coalim.ApiServer.csproj" />
+      <ProjectReference Include="..\Coalim.Database.Schema.Tests\Coalim.Database.Schema.Tests.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -6,9 +6,9 @@ namespace Coalim.Database.Tests;
 
 #nullable disable
 
-public class TestServerContext
+public class TestDatabaseContext
 {
-    public TestServerContext(CoalimDatabaseContext context)
+    public TestDatabaseContext(CoalimDatabaseContext context)
     {
         this.User1 = context.CreateUser("User1");
         this.User2 = context.CreateUser("User2");

@@ -1,6 +1,11 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/home/jvyden/.cache/JetBrains/Rider2023.3/resharper-host/temp/Rider/vAny/CoverageData/_Coalim.1783237540/Snapshot/snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d530e493_002D9e4e_002D42fb_002Da3e0_002D97941614254f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;Coalim.Database.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;Project Location="/home/jvyden/Documents/Coalim/Coalim.Database.Tests" Presentation="&amp;lt;Coalim.Database.Tests&amp;gt;" /&gt;
+  &lt;Or&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::87A623BB-36DF-4F25-A83E-BDD21FF85132::net8.0::Coalim.ApiServer.Tests.Tests.AuthenticationTests.CanAuthenticate&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Project Location="/home/jvyden/Documents/Coalim" Presentation="&amp;lt;Database&amp;gt;" /&gt;
+  &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
