@@ -1,5 +1,8 @@
 ﻿using System.Reflection;
+using Bunkum.Core.Responses;
+using Bunkum.Core.Responses.Serialization;
 using Coalim.Api.Server.Authentication;
+using Coalim.Api.Server.Serialization;
 using Coalim.Database.BunkumSupport;
 using NotEnoughLogs;
 using NotEnoughLogs.Behaviour;
@@ -28,6 +31,9 @@ public class Program
             s.UseDatabaseProvider(databaseProvider);
             s.AddService<AuthenticationService>();
         };
+
+        server.RemoveSerializer<BunkumJsonSerializer>();
+        server.AddSerializer<CoalimJsonSerializer>();
         
         server.Start();
         await Task.Delay(-1);
