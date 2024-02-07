@@ -9,6 +9,6 @@ public class UserEndpoints : EndpointGroup
     [ApiEndpoint("/users/me")]
     public CoalimApiUser GetOwnUser(RequestContext context, CoalimUser user)
     {
-        return CoalimApiUser.MapFrom(user);
+        return CoalimApiUser.Map(user);
     }
 }

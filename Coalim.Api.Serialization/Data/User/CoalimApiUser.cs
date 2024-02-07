@@ -4,10 +4,10 @@ namespace Coalim.Api.Serialization.Data.User;
 
 public class CoalimApiUser : IMappableObject<CoalimApiUser, CoalimUser>
 {
-    public Guid UserId { get; init; }
-    public string Username { get; init; }
+    public required Guid UserId { get; init; }
+    public required string Username { get; init; }
     
-    public static CoalimApiUser MapFrom(CoalimUser source)
+    public static CoalimApiUser Map(CoalimUser source)
     {
         return new CoalimApiUser
         {

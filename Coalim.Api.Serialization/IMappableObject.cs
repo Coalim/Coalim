@@ -1,5 +1,6 @@
 using Coalim.Api.Serialization.Data.User;
 using Coalim.Database.Schema.Data.User;
+using Newtonsoft.Json;
 
 namespace Coalim.Api.Serialization;
 
@@ -9,6 +10,7 @@ namespace Coalim.Api.Serialization;
 /// </summary>
 /// <typeparam name="TTarget">The target type to convert to.</typeparam>
 /// <typeparam name="TSource">The database type to convert from.</typeparam>
+[JsonObject]
 public interface IMappableObject<out TTarget, in TSource> where TTarget : class where TSource : class
 {
     /// <summary>
@@ -16,5 +18,5 @@ public interface IMappableObject<out TTarget, in TSource> where TTarget : class 
     /// </summary>
     /// <param name="source">The original database object to map from.</param>
     /// <returns>The mapped object.</returns>
-    public static abstract TTarget MapFrom(TSource source);
+    public static abstract TTarget Map(TSource source);
 }
