@@ -1,5 +1,6 @@
 using Bunkum.Core.Database;
 using Coalim.Database.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coalim.Database.BunkumSupport;
 
@@ -13,13 +14,13 @@ public class CoalimDatabaseProvider<TSchemaType> : IDatabaseProvider<CoalimBunku
 
     public void Warmup()
     {
-        // None needed
+        using CoalimDatabaseSchemaContext context = new TSchemaType();
+        context.Database.Migrate();
     }
 
     public CoalimBunkumDatabaseContext GetContext()
     {
         CoalimDatabaseSchemaContext context = new TSchemaType();
-        context.Database.EnsureCreated(); // TODO: don't do this
         return new CoalimBunkumDatabaseContext(context);
     }
     
