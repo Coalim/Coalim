@@ -1,4 +1,4 @@
-namespace Coalim.ApiServer.Tests.Tests;
+namespace Coalim.Api.Server.Tests.Tests;
 
 public class AuthenticationTests
 {

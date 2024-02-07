@@ -1,9 +1,8 @@
 using Bunkum.Core.Database;
 using Coalim.Database.BunkumSupport;
-using Coalim.Database.Schema;
 using Coalim.Database.Schema.Tests;
 
-namespace Coalim.ApiServer.Tests.TestingInfrastructure;
+namespace Coalim.Api.Server.Tests.TestingInfrastructure;
 
 public class TestDatabaseProvider : IDatabaseProvider<CoalimBunkumDatabaseContext>
 {

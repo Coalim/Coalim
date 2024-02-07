@@ -1,13 +1,10 @@
 using Bunkum.Protocols.Http;
 using Bunkum.Protocols.Http.Direct;
-using Coalim.Api.Server;
 using Coalim.Database.Accessor;
-using Coalim.Database.BunkumSupport;
-using Coalim.Database.Schema.Tests;
 using NotEnoughLogs;
 using NotEnoughLogs.Behaviour;
 
-namespace Coalim.ApiServer.Tests.TestingInfrastructure;
+namespace Coalim.Api.Server.Tests.TestingInfrastructure;
 
 public class TestServerContext : IDisposable
 {

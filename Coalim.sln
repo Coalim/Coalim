@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.Accessor", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.Tests", "Coalim.Database.Tests\Coalim.Database.Tests.csproj", "{40795D92-904C-4CB9-8F42-921DB1FF2EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.ApiServer", "Coalim.ApiServer\Coalim.ApiServer.csproj", "{4F9C5B36-3395-4EE8-A5F0-96E906B5BC85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Api.Server", "Coalim.Api.Server\Coalim.Api.Server.csproj", "{4F9C5B36-3395-4EE8-A5F0-96E906B5BC85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{7B3E4794-6BBB-4D6C-8255-0171FE89C5FA}"
 EndProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servers", "Servers", "{4C8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.BunkumSupport", "Coalim.Database.BunkumSupport\Coalim.Database.BunkumSupport.csproj", "{908152CE-5D03-4205-A6EF-EE97E46CF62B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.ApiServer.Tests", "Coalim.ApiServer.Tests\Coalim.ApiServer.Tests.csproj", "{87A623BB-36DF-4F25-A83E-BDD21FF85132}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Api.Server.Tests", "Coalim.Api.Server.Tests\Coalim.Api.Server.Tests.csproj", "{87A623BB-36DF-4F25-A83E-BDD21FF85132}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coalim.Database.Schema.Tests", "Coalim.Database.Schema.Tests\Coalim.Database.Schema.Tests.csproj", "{2CE80B2C-3B9F-45C6-B4C7-753FADCEEA51}"
 EndProject
