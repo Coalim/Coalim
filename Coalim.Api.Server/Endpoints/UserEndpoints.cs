@@ -1,5 +1,4 @@
 using Coalim.Api.Serialization.Data.User;
-using Coalim.Api.Server.EndpointAttributes;
 using Coalim.Database.Schema.Data.User;
 
 namespace Coalim.Api.Server.Endpoints;

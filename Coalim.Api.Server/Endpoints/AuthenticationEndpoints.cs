@@ -1,6 +1,3 @@
-using Bunkum.Core.Responses;
-using Coalim.Api.Server.EndpointAttributes;
-using Coalim.Database.BunkumSupport;
 using Coalim.Database.Schema.Data.User;
 
 namespace Coalim.Api.Server.Endpoints;

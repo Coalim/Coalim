@@ -2,7 +2,6 @@
 using Bunkum.Core.Responses.Serialization;
 using Coalim.Api.Server.Authentication;
 using Coalim.Api.Server.Serialization;
-using Coalim.Database.BunkumSupport;
 using NotEnoughLogs;
 using NotEnoughLogs.Behaviour;
 
