@@ -7,4 +7,7 @@ public readonly struct RealtimeMessage
 {
     [JsonProperty("o")]
     public RealtimeMessageOpcode Opcode { get; init; }
+    
+    [JsonProperty("d", NullValueHandling = NullValueHandling.Ignore)]
+    public dynamic? Data { get; init; }
 }

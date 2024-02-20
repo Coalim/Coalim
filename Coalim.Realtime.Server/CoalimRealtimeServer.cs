@@ -4,6 +4,7 @@ using Coalim.Realtime.Server.Transmission;
 using Newtonsoft.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using static Coalim.Realtime.Server.Transmission.RealtimeMessageOpcode;
 using Logger = NotEnoughLogs.Logger;
 
 namespace Coalim.Realtime.Server;
@@ -52,7 +53,9 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
                 this.Socket.Close(1002, $"Unknown opcode '{message.Opcode}'");
                 return;
             }
-            this.Send(message.Opcode.ToString());
+            
+            
+            this.SendMessage(ServerPacketOpcode, ((RealtimeMessageOpcode)message.Data!).ToString());
         }
         catch(Exception e)
         {
@@ -65,5 +68,18 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
         // Close immediately if the client sends binary text as this does not comply with our server
         // https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
         this.Socket.Close(1003, "This server only accepts TEXT.");
+    }
+
+    private void SendMessage(RealtimeMessageOpcode opcode, object? data = null)
+    {
+        RealtimeMessage message = new()
+        {
+            Opcode = opcode,
+            Data = data,
+        };
+
+        string messageData = JsonConvert.SerializeObject(message);
+        
+        this.Send(messageData);
     }
 }
