@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Coalim.Database.Accessor;
+using Coalim.Realtime.Server.Transmission;
+using Newtonsoft.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Logger = NotEnoughLogs.Logger;
@@ -40,7 +42,22 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
     private void OnTextMessage(string data)
     {
         this._logger.LogTrace("Client", "Received message: {0}", data);
-        this.Send(data);
+
+        try
+        {
+            RealtimeMessage message = JsonConvert.DeserializeObject<RealtimeMessage>(data);
+
+            if (!Enum.IsDefined(message.Opcode))
+            {
+                this.Socket.Close(1002, $"Unknown opcode '{message.Opcode}'");
+                return;
+            }
+            this.Send(message.Opcode.ToString());
+        }
+        catch(Exception e)
+        {
+            this._logger.LogWarning("Client", e.ToString());
+        }
     }
 
     private void OnBinaryMessage(byte[] data)
