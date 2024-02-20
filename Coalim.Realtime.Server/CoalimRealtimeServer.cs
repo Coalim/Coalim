@@ -42,7 +42,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
     private void OnTextMessage(string data)
     {
-        this._logger.LogTrace("Client", "Received message: {0}", data);
+        this._logger.LogDebug("Client", "Received message: {0}", data);
 
         try
         {
@@ -54,8 +54,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
                 return;
             }
             
-            
-            this.SendMessage(ServerPacketOpcode, ((RealtimeMessageOpcode)message.Data!).ToString());
+            HandleMessage(message);
         }
         catch(Exception e)
         {
@@ -68,6 +67,20 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
         // Close immediately if the client sends binary text as this does not comply with our server
         // https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
         this.Socket.Close(1003, "This server only accepts TEXT.");
+    }
+
+    private void HandleMessage(RealtimeMessage message)
+    {
+        switch (message.Opcode)
+        {
+            case ClientLogin:
+                break;
+            case ClientIdentifyPacketOpcode:
+                this.SendMessage(ServerPacketOpcode, ((RealtimeMessageOpcode)message.Data!).ToString());
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void SendMessage(RealtimeMessageOpcode opcode, object? data = null)
