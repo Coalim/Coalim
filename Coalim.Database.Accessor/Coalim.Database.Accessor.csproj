@@ -10,5 +10,9 @@
     <ItemGroup>
       <ProjectReference Include="..\Coalim.Database.Schema\Coalim.Database.Schema.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    </ItemGroup>
 
 </Project>

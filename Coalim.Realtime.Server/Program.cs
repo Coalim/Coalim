@@ -1,4 +1,5 @@
-﻿using NotEnoughLogs;
+﻿using Coalim.Database.Accessor;
+using NotEnoughLogs;
 using NotEnoughLogs.Behaviour;
 using WebSocketSharp.Server;
 
@@ -6,9 +7,11 @@ namespace Coalim.Realtime.Server;
 
 public static class Program
 {
+    private static Logger _logger = null!;
+    
     public static async Task Main()
     {
-        Logger logger = new Logger(new LoggerConfiguration()
+        _logger = new Logger(new LoggerConfiguration
         {
             Behaviour = new QueueLoggingBehaviour(),
 #if DEBUG
@@ -19,7 +22,7 @@ public static class Program
         });
         
         WebSocketServer server = new WebSocketServer(10060);
-        server.AddWebSocketService<CoalimRealtimeServer>("/ws");
+        server.AddWebSocketService("/ws", InitializeServer);
 
         server.Log.Output = (data, s) =>
         {
@@ -33,12 +36,20 @@ public static class Program
                 WebSocketSharp.LogLevel.Fatal => LogLevel.Critical,
             };
             
-            logger.Log(level, "WebSocketServer", data.Message);
+            _logger.Log(level, "WebSocketServer", data.Message);
         };
 
         server.Log.Level = WebSocketSharp.LogLevel.Trace;
         
         server.Start();
         await Task.Delay(-1);
+    }
+
+    private static CoalimRealtimeServer InitializeServer()
+    {
+        CoalimDatabaseContext databaseContext = new CoalimDatabaseContext(new PostgresSchemaContext());
+        
+        CoalimRealtimeServer server = new(_logger, databaseContext);
+        return server;
     }
 }

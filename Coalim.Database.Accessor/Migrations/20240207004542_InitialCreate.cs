@@ -1,4 +1,5 @@
 ﻿using System;
+using Coalim.Database.Accessor;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 

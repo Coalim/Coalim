@@ -1,7 +1,7 @@
 using Coalim.Database.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Coalim.Database.BunkumSupport;
+namespace Coalim.Database.Accessor;
 
 public class PostgresSchemaContext : CoalimDatabaseSchemaContext
 {
