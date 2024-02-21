@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using static Coalim.Realtime.Server.Transmission.RealtimeMessageOpcode;
+using static Coalim.Realtime.Server.Transmission.WebSocketErrorCode;
 using Logger = NotEnoughLogs.Logger;
 
 namespace Coalim.Realtime.Server;
@@ -36,6 +37,12 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
     {
         this._database.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    public void CloseConnection(WebSocketErrorCode code, string reason)
+    {
+        this._logger.LogInfo("Client", $"Closing connection for user ({_user?.Username ?? "none"}): {code} {reason}");
+        this.Socket.Close((ushort)code, reason);
     }
 
     protected override void OnOpen()
@@ -69,7 +76,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
             if (!Enum.IsDefined(message.Opcode))
             {
-                this.Socket.Close(1002, $"Unknown opcode '{message.Opcode}'");
+                this.CloseConnection(ProtocolError, $"Unknown opcode '{message.Opcode}'");
                 return;
             }
             
@@ -85,7 +92,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
     {
         // Close immediately if the client sends binary text as this does not comply with our server
         // https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
-        this.Socket.Close(1003, "This server only accepts TEXT.");
+        this.CloseConnection(UnexpectedDataType, "This server only accepts TEXT.");
     }
 
     private void HandleMessage(RealtimeMessage message)
@@ -127,7 +134,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
                 break;
             }
             default:
-                this.Socket.Close(1002, "Must authenticate to use this packet");
+                this.CloseConnection(ProtocolViolation, "Must authenticate to use this packet");
                 break;
         }
     }
