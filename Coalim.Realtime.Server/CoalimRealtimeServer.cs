@@ -1,7 +1,11 @@
 using System.Diagnostics;
+using Coalim.Api.Serialization.Data.User;
 using Coalim.Database.Accessor;
+using Coalim.Database.Schema.Data.User;
 using Coalim.Realtime.Server.Transmission;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using static Coalim.Realtime.Server.Transmission.RealtimeMessageOpcode;
@@ -15,6 +19,8 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
     private readonly CoalimDatabaseContext _database;
     
     private WebSocket Socket => this.Context.WebSocket;
+
+    public CoalimUser? User = null;
     
     public CoalimRealtimeServer(Logger logger, CoalimDatabaseContext database)
     {
@@ -71,15 +77,44 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
     private void HandleMessage(RealtimeMessage message)
     {
+        if (this.User == null)
+        {
+            HandleHandshakeMessage(message);
+            return;
+        }
+        
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (message.Opcode)
         {
-            case ClientLogin:
-                break;
             case ClientIdentifyPacketOpcode:
                 this.SendMessage(ServerPacketOpcode, ((RealtimeMessageOpcode)message.Data!).ToString());
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void HandleHandshakeMessage(RealtimeMessage message)
+    {
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+        switch (message.Opcode)
+        {
+            case ClientLogin:
+            {
+                CoalimLoginRequest? request = ((JObject)message.Data!).ToObject<CoalimLoginRequest>();
+                if (request == null) return;
+                CoalimUser? user = this._database.GetUserByUsername(request.Username);
+                if (user == null) return;
+
+                CoalimToken token = this._database.CreateTokenForUser(user);
+
+                this.User = user;
+                this.SendMessage(ServerLoginResponse, CoalimApiTokenResponse.Map(token));
+                break;
+            }
+            default:
+                this.Socket.Close(1002, "Must authenticate to use this packet");
+                break;
         }
     }
 
@@ -91,7 +126,17 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
             Data = data,
         };
 
-        string messageData = JsonConvert.SerializeObject(message);
+        JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            #if DEBUG
+            Formatting = Formatting.Indented,
+            #else
+            Formatting = Formatting.None,
+            #endif
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+        };
+
+        string messageData = JsonConvert.SerializeObject(message, settings);
         
         this.Send(messageData);
     }
