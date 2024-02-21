@@ -6,4 +6,6 @@ public enum RealtimeMessageOpcode : byte
     ServerLoginResponse = 1,
     ClientIdentifyPacketOpcode = 2,
     ServerPacketOpcode = 3,
+    ServerJoinServer = 4,
+    ServerInformation = 5,
 }

@@ -37,6 +37,9 @@ public class CoalimDatabaseContext : IDisposable
     public CoalimUser? GetUserByUsername(string username)
         => this._context.Users.FirstOrDefault(u => u.Username == username);
 
+    public IEnumerable<CoalimServer> GetServersContainingUser(CoalimUser user) =>
+        this._context.Servers.AsEnumerable();
+
     public CoalimServer CreateServer(CoalimUser creator, string name)
     {
         CoalimServer server = new CoalimServer

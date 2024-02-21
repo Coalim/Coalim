@@ -1,6 +1,9 @@
 using System.Diagnostics;
+using Coalim.Api.Serialization.Data;
+using Coalim.Api.Serialization.Data.Chat;
 using Coalim.Api.Serialization.Data.User;
 using Coalim.Database.Accessor;
+using Coalim.Database.Schema.Data.Chat;
 using Coalim.Database.Schema.Data.User;
 using Coalim.Realtime.Server.Transmission;
 using Newtonsoft.Json;
@@ -17,10 +20,11 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 {
     private readonly Logger _logger;
     private readonly CoalimDatabaseContext _database;
+    private CoalimUser? _user = null;
     
     private WebSocket Socket => this.Context.WebSocket;
 
-    public CoalimUser? User = null;
+    private const int ProtocolVersion = 1;
     
     public CoalimRealtimeServer(Logger logger, CoalimDatabaseContext database)
     {
@@ -32,6 +36,15 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
     {
         this._database.Dispose();
         GC.SuppressFinalize(this);
+    }
+
+    protected override void OnOpen()
+    {
+        this.SendMessage(ServerInformation, new CoalimServerInformation
+        {
+            ServerName = "Coalim Realtime Server",
+            ProtocolVersion = ProtocolVersion,
+        });
     }
 
     protected override void OnMessage(MessageEventArgs e)
@@ -77,7 +90,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
     private void HandleMessage(RealtimeMessage message)
     {
-        if (this.User == null)
+        if (this._user == null)
         {
             HandleHandshakeMessage(message);
             return;
@@ -108,13 +121,24 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
                 CoalimToken token = this._database.CreateTokenForUser(user);
 
-                this.User = user;
+                this._user = user;
                 this.SendMessage(ServerLoginResponse, CoalimApiTokenResponse.Map(token));
+                this.SendCurrentState();
                 break;
             }
             default:
                 this.Socket.Close(1002, "Must authenticate to use this packet");
                 break;
+        }
+    }
+
+    private void SendCurrentState()
+    {
+        Debug.Assert(this._user != null);
+        IEnumerable<CoalimServer> servers = this._database.GetServersContainingUser(this._user);
+        foreach (CoalimServer server in servers)
+        {
+            this.SendMessage(ServerJoinServer, CoalimApiServer.Map(server));
         }
     }
 
