@@ -1,4 +1,5 @@
-﻿using Coalim.Database.Accessor;
+﻿using Coalim.Api.Serialization;
+using Coalim.Database.Accessor;
 using NotEnoughLogs;
 using NotEnoughLogs.Behaviour;
 using WebSocketSharp.Server;
@@ -20,9 +21,12 @@ public static class Program
             MaxLevel = LogLevel.Info,
 #endif
         });
+
+        const string endpoint = "/ws";
+        const ushort port = 10060;
         
-        WebSocketServer server = new WebSocketServer(10060);
-        server.AddWebSocketService("/ws", InitializeServer);
+        WebSocketServer server = new WebSocketServer(port);
+        server.AddWebSocketService(endpoint, InitializeServer);
 
         server.Log.Output = (data, s) =>
         {
@@ -34,14 +38,17 @@ public static class Program
                 WebSocketSharp.LogLevel.Warn => LogLevel.Warning,
                 WebSocketSharp.LogLevel.Error => LogLevel.Error,
                 WebSocketSharp.LogLevel.Fatal => LogLevel.Critical,
+                _ => LogLevel.Info,
             };
             
-            _logger.Log(level, "WebSocketServer", data.Message);
+            _logger.Log(level, CoalimLog.RealtimeServer, data.Message);
         };
 
         server.Log.Level = WebSocketSharp.LogLevel.Trace;
         
         server.Start();
+        _logger.LogInfo(CoalimLog.RealtimeServer, "Now listening for realtime connections at '{0}' at port {1}", endpoint, port);
+        
         await Task.Delay(-1);
     }
 

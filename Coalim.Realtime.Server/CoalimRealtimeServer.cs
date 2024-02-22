@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Coalim.Api.Serialization;
 using Coalim.Api.Serialization.Data;
 using Coalim.Api.Serialization.Data.Chat;
 using Coalim.Api.Serialization.Data.User;
@@ -41,7 +42,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
     public void CloseConnection(WebSocketErrorCode code, string reason)
     {
-        this._logger.LogInfo("Client", $"Closing connection for user ({_user?.Username ?? "none"}): {code} {reason}");
+        this._logger.LogInfo(CoalimLog.RealtimeClient, $"Closing connection for user ({_user?.Username ?? "none"}): {code} {reason}");
         this.Socket.Close((ushort)code, reason);
     }
 
@@ -68,7 +69,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
 
     private void OnTextMessage(string data)
     {
-        this._logger.LogDebug("Client", "Received message: {0}", data);
+        this._logger.LogDebug(CoalimLog.RealtimeClient, "Received message: {0}", data);
 
         try
         {
@@ -84,7 +85,7 @@ public class CoalimRealtimeServer : WebSocketBehavior, IDisposable
         }
         catch(Exception e)
         {
-            this._logger.LogWarning("Client", e.ToString());
+            this._logger.LogWarning(CoalimLog.RealtimeClient, e.ToString());
         }
     }
 
